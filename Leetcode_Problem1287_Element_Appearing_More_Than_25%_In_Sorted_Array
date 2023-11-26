@@ -1,0 +1,71 @@
+int findSpecialInteger(int* arr, int arrSize) {
+    int *array = calloc(100001,sizeof(int));
+    for( int i = 0 ; i < arrSize ; i++)
+        array[arr[i]]++;
+    for( int i = 0 ; i < 100001 ; i++)
+    {
+        if(array[i] > arrSize * .25)
+        {
+            free(array);
+            return i;
+        }
+    }
+    return 0;
+}
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+int findSpecialInteger(int* arr, int arrSize){
+    int minOcurrences = arrSize/4;
+    for(int i = 0 ; i < arrSize - minOcurrences ; i++)
+        if(arr[i] == arr[i + minOcurrences])
+            return arr[i];
+    return -1;
+}
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+int findSpecialInteger(int* arr, int arrSize){
+    int bar = (arrSize / 4) + 1;
+    for (size_t i = 0, j = 0 ; i < arrSize ; )
+    {
+        while ((j < arrSize) && (arr[i] == arr[j]))
+        j++;
+        if ((j - i) >= bar)
+            return arr[i];
+        i = j;
+    }
+    return arr[0];
+}
+
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+int findSpecialInteger(int* arr, int arrSize){
+    int i = 0;
+    while (i < arrSize)
+    {
+        int countNum = 1;
+        for( ; ((i + 1 < arrSize) && (arr[i] == arr[i+1])) ; i++ , countNum++);
+        if ((double)countNum / arrSize > 0.25) 
+            return arr[i];
+        i++;
+    }
+    return -1;
+}
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+int findSpecialInteger(int *arr, int arrSize)
+{
+    int i = 0;
+    for ( ; ( i < (arrSize - (arrSize / 4))) && (arr[i] != arr[i + (arrSize / 4)]) ; i++);
+    return arr[i];
+}
